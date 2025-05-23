@@ -383,22 +383,6 @@ export function testSuite(adapterName: string, createAdapterFactory: () => any) 
   });
 }
 
-// This is where specific adapters would typically run the testSuite.
-// For example, if there was a Redis test setup here, it would be:
-// import { createAdapter as createRedisAdapter } from "socket.io-redis-adapter"; // or from "../lib" if it were Redis
-// describe("Redis Adapter", () => {
-//   const redisAdapterFactory = () => {
-//     // Create and return Redis pub/sub clients, then the adapter factory
-//     // const pubClient = createRedisClient();
-//     // const subClient = pubClient.duplicate();
-//     // return createRedisAdapter(pubClient, subClient, { key: "test-redis" });
-//     // For the purpose of this example, let's assume a mock factory:
-//     return () => { /* mock redis adapter */ };
-//   };
-//   testSuite("Redis", redisAdapterFactory);
-// });
-
-
 // Now, let's add the Hazelcast adapter tests using the global hzClient
 describe("Hazelcast Adapter", function() {
   this.timeout(15000); // Set timeout for the whole describe block
@@ -419,14 +403,3 @@ describe("Hazelcast Adapter", function() {
   testSuite("Hazelcast", hazelcastAdapterTestFactory);
 });
 
-// Example of how sharded adapter tests might be structured (if they were here)
-// import { createShardedAdapter } from "socket.io-redis-adapter";
-// describe("Sharded Redis Adapter", () => {
-//   const shardedAdapterFactory = () => {
-//     // const pubClient = createRedisClient();
-//     // const subClient = pubClient.duplicate();
-//     // return createShardedAdapter(pubClient, subClient, { key: "test-sharded" });
-//     return () => { /* mock sharded adapter */ };
-//   };
-//   testSuite("Sharded Redis", shardedAdapterFactory);
-// });

@@ -23,6 +23,20 @@
 
 # Release notes
 
+## [8.5.0] - YYYY-MM-DD
+
+### Changed
+- The project now exclusively supports the Hazelcast adapter. All Redis-related code, dependencies, documentation, and tests have been removed.
+- The main adapter is now `HazelcastAdapter`, available via `createHazelcastAdapter`.
+- The package name and description will be updated in `package.json` in a subsequent step to reflect this change (e.g., to `@socket.io/hazelcast-adapter`).
+
+### Removed
+- `RedisAdapter`, `createRedisAdapter`, and all associated Redis-specific logic and options.
+- `ShardedRedisAdapter` (if it was part of the codebase being refactored).
+- Redis-specific dependencies (`redis`, `ioredis`, `redis-v3`, `notepack.io`) from `package.json`. (Note: Some of these were already removed in previous steps).
+- Redis-specific sections from `README.md` and `docker-compose.yml`.
+- Redis-specific test configurations from test files.
+
 ## [8.4.0] - YYYY-MM-DD
 
 ### Added

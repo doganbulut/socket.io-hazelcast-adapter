@@ -1,10 +1,19 @@
-services:
-  redis:
-    image: redis:7
-    ports:
-      - "6379:6379"
+version: '3.8' # Added version for better compatibility and feature support
 
-  redis-cluster:
-    image: grokzen/redis-cluster:7.0.10
+services:
+  hazelcast:
+    image: hazelcast/hazelcast:latest
     ports:
-      - "7000-7005:7000-7005"
+      - "5701:5701"
+# Removed redis and redis-cluster services.
+# The redis service was:
+#  redis:
+#    image: redis:7
+#    ports:
+#      - "6379:6379"
+#
+# The redis-cluster service was:
+#  redis-cluster:
+#    image: grokzen/redis-cluster:7.0.10
+#    ports:
+#      - "7000-7005:7000-7005"
