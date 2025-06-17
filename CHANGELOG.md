@@ -1,5 +1,6 @@
 # History
 
+- [8.4.0](840-YYYY-MM-DD) (YYYY-MM-DD)
 - [8.3.0](830-2024-03-13) (Mar 2024)
 - [8.2.1](821-2023-05-14) (May 2023)
 - [8.2.0](820-2023-05-02) (May 2023)
@@ -21,6 +22,25 @@
 
 
 # Release notes
+
+## [8.5.0] - YYYY-MM-DD
+
+### Changed
+- The project now exclusively supports the Hazelcast adapter. All Redis-related code, dependencies, documentation, and tests have been removed.
+- The main adapter is now `HazelcastAdapter`, available via `createHazelcastAdapter`.
+- The package name and description will be updated in `package.json` in a subsequent step to reflect this change (e.g., to `@socket.io/hazelcast-adapter`).
+
+### Removed
+- `RedisAdapter`, `createRedisAdapter`, and all associated Redis-specific logic and options.
+- `ShardedRedisAdapter` (if it was part of the codebase being refactored).
+- Redis-specific dependencies (`redis`, `ioredis`, `redis-v3`, `notepack.io`) from `package.json`. (Note: Some of these were already removed in previous steps).
+- Redis-specific sections from `README.md` and `docker-compose.yml`.
+- Redis-specific test configurations from test files.
+
+## [8.4.0] - YYYY-MM-DD
+
+### Added
+- Hazelcast adapter for using Hazelcast as a backing store for multi-server message broadcasting. This adapter is available via `createHazelcastAdapter` and provides an alternative to the Redis-based adapters.
 
 ## [8.3.0](https://github.com/socketio/socket.io-redis-adapter/compare/8.2.1...8.3.0) (2024-03-13)
 

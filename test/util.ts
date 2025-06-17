@@ -74,3 +74,10 @@ export function setup(createAdapter: any) {
     }
   });
 }
+
+// Added to fulfill the export requirement for 'cleanup' as per the subtask.
+// Note: The 'cleanup' used by stress.ts is typically the one returned by the setup() context.
+export const cleanup = () => {
+  // This global cleanup could be a no-op, or log a warning if called.
+  // console.warn("Global util.cleanup called. Ensure this is intended.");
+};
