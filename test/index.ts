@@ -2,6 +2,7 @@ import type { Server, Socket as ServerSocket } from "socket.io";
 import type { Socket as ClientSocket } from "socket.io-client";
 import expect = require("expect.js");
 import { times, sleep, shouldNotHappen, setup } from "./util";
+import { runStressTest } from "./stress";
 
 // Hazelcast Client Setup
 import { HazelcastClient } from 'hazelcast-client';
@@ -403,3 +404,35 @@ describe("Hazelcast Adapter", function() {
   testSuite("Hazelcast", hazelcastAdapterTestFactory);
 });
 
+describe("Hazelcast Adapter - Stress Tests", function() {
+  this.timeout(120000); // Set a longer timeout for stress tests (e.g., 2 minutes)
+
+  // Skip stress tests if Hazelcast client is not available
+  before(function() {
+    if (!hzClient) {
+      console.warn("Hazelcast client not available, skipping stress tests.");
+      this.skip();
+    }
+  });
+
+  const stressTestConfigs = [
+    { clients: 5, messages: 10 },
+    { clients: 10, messages: 20 },
+    // Add more configurations as needed, e.g.:
+    // { clients: 50, messages: 10 },
+    // { clients: 10, messages: 100 },
+  ];
+
+  stressTestConfigs.forEach(config => {
+    it(`should handle ${config.clients} clients sending ${config.messages} messages each`, async function() {
+      if (!hzClient) { // Redundant check, but good for safety
+        this.skip();
+        return;
+      }
+      const results = await runStressTest(hzClient, config.clients, config.messages);
+      expect(results.successful).to.be(true);
+      expect(results.totalMessagesReceived).to.eql(results.totalMessagesSent);
+      console.log(`Stress test (${config.clients} clients, ${config.messages} messages/client) results: Duration: ${results.duration}ms, Success: ${results.successful}`);
+    });
+  });
+});
